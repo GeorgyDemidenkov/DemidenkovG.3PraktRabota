@@ -1,29 +1,25 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class TwentyEight {
+public class Main {
     public static void main(String[] args) {
-        TwentyEight twentyEight = new TwentyEight();
-        String line = twentyEight.userPutString("Введите строку: ");
-        String direction = twentyEight.userPutString("Введите направление (справа/слева): ");
-        int shift = twentyEight.userPutInt("Введите сдвиг: ");
-        char[] matrixWords = twentyEight.generateMatrixWords();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите строку: ");
+        String line = scanner.nextLine();
+
+        System.out.println("Введите направление (справа/слева): ");
+        String direction = scanner.nextLine();
+
+        System.out.println("Введите сдвиг: ");
+        int shift = scanner.nextInt();
+
+        char[] matrixWords = generateMatrixWords();
 
         System.out.println("Результат работы: " + caesarsCipher(line, direction, shift, matrixWords));
     }
 
-    private String userPutString(String prompt) {
-        System.out.println(prompt);
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
-    }
-
-    private int userPutInt(String prompt) {
-        System.out.println(prompt);
-        Scanner in = new Scanner(System.in);
-        return in.nextInt();
-    }
-
-    private char[] generateMatrixWords() {
+    private static char[] generateMatrixWords() {
         char[] matrixWords = new char[32];
         int j = 0;
         for (char i = 'а'; i <= 'я'; ++i) {
@@ -41,7 +37,7 @@ public class TwentyEight {
                 result.append(' ');
                 continue;
             }
-            int index = findCharIndex(matrixWords, currentChar);
+            int index = new String(matrixWords).indexOf(currentChar);
             if (direction.equalsIgnoreCase("справа")) {
                 result.append(matrixWords[(index + shift) % matrixWords.length]);
             } else if (direction.equalsIgnoreCase("слева")) {
@@ -49,14 +45,5 @@ public class TwentyEight {
             }
         }
         return result;
-    }
-
-    private static int findCharIndex(char[] array, char target) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == target) {
-                return i;
-            }
-        }
-        return -1;
     }
 }
