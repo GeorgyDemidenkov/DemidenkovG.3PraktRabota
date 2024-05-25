@@ -1,1 +1,0 @@
-# DemidenkovG.3PraktRabota
